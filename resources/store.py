@@ -22,7 +22,7 @@ class Store(MethodView):
         store = StoreModel.query.get_or_404(store_id)
         return store
 
-    @jwt_required()
+    #@jwt_required()
     def delete(self , store_id):                                                        #delete a particular store
         store = StoreModel.query.get_or_404(store_id)
         variables.session.delete(store)
@@ -52,7 +52,7 @@ class Store_new(MethodView):
     def get(self):                                                                      #get all stores
         return StoreModel.query.all()
 
-    @jwt_required()
+    #@jwt_required()
     @blp.response(201 , Storevalidate)
     @blp.arguments(Storevalidate)
     def post(self, store_data):                                                         #insert_new_store , the Storevalidate will return a dict so no need for store_data = request.get_json()

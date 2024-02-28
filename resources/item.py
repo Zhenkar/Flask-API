@@ -25,7 +25,7 @@ class Item(MethodView):
                                                                                             # query takes only the ""primary key""" value form the request and search the database , if not found it'll return 404 error
         return item
 
-    @jwt_required(fresh=True)
+    #@jwt_required(fresh=True)
     def delete(self, item_id):                                                              
         item = ItemModel.query.get_or_404(item_id)
         variables.session.delete(item)
@@ -33,11 +33,11 @@ class Item(MethodView):
         return {"message":"Item deleted successfully"}
 
 
-    @jwt_required()
+    #@jwt_required()
     #order of argument and response matters
     @blp.arguments(ItemsUpdate)                 
     @blp.response(200 , Itemsvalidate)
-    def put(self, request_data , item_id):                                                  # update_item , the request_data shoule be first because its the rule for arguments keyword                              
+    def put(self, request_data , item_id):                                                  # update_item , the request_data shoule be first                               
         item = ItemModel.query.get(item_id) 
         if item:
             item.name = request_data["name"]
@@ -62,7 +62,7 @@ class Items_new(MethodView):
     def get(self):
         return ItemModel.query.all()
     
-    @jwt_required(fresh=True)
+    #@jwt_required(fresh=True)
     @blp.doc(description = "Testing doc")
     @blp.arguments(Itemsvalidate)                                                           # this line is making sure that the json text contains all the necessary fields mentioned in the schema , and returns a dcitonary (in our case request_data) no need for request_dat = reqest.get_json()
     @blp.response(201,Itemsvalidate)
